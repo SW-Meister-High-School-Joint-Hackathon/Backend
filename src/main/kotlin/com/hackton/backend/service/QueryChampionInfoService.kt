@@ -3,7 +3,7 @@ package com.hackton.backend.service
 import com.hackton.backend.dto.response.QueryChampionInfoResponse
 import com.hackton.backend.dto.response.QueryChampionInfoResponse.PersonInfo
 import com.hackton.backend.dto.response.QueryChampionInfoResponse.TeamInfo
-import com.hackton.backend.getFrame
+import com.hackton.backend.common.getFrame
 import org.springframework.stereotype.Service
 
 @Service
