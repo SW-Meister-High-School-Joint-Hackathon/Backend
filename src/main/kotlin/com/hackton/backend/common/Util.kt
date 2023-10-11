@@ -6,14 +6,21 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.hackton.backend.common.error.FindValueNotFoundException
 import org.springframework.core.io.ClassPathResource
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 fun getFrame(): JsonNode = jacksonObjectMapper().readValue<JsonNode>(getFile())["frames"]
 
-fun JsonNode.getValue(key: String): JsonNode =
+fun JsonNode.getValue(key: String): JsonNode = // TODO: 추후 findValue -> 모두 이 메소드로 수정
     try {
         this.findValue(key)
     } catch (_: NullPointerException) {
         throw FindValueNotFoundException
     }
 
-private fun getFile(): File = ClassPathResource("EMH_LSB_KT_set1.json").file
+private fun getFile(): File {
+    val classPathResource = ClassPathResource("EMH_LSB_KT_set1.json")
+    val tempFile = File.createTempFile("prefix", "suffix")
+    Files.copy(classPathResource.inputStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
+    return tempFile
+}
