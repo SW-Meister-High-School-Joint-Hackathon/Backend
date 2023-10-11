@@ -29,3 +29,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
+
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}
