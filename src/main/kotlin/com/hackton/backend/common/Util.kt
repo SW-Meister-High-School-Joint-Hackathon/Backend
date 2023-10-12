@@ -19,8 +19,9 @@ fun JsonNode.getValue(key: String): JsonNode = // TODO: 추후 findValue -> 모�
     }
 
 private fun getFile(): File {
-    val classPathResource = ClassPathResource("EMH_LSB_KT_set1.json")
-    val tempFile = File.createTempFile("prefix", "suffix")
-    Files.copy(classPathResource.inputStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
+    val tempFile = Files.createTempFile("prefix", "suffix").toFile()
+    ClassPathResource("EMH_LSB_KT_set1.json").inputStream.use { inputStream ->
+        Files.copy(inputStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
+    }
     return tempFile
 }
