@@ -5,10 +5,12 @@ import com.hackton.backend.dto.response.QueryDestroyTowerInfoResponse
 import com.hackton.backend.dto.response.QueryInhibitorBuildingInfoResponse
 import com.hackton.backend.dto.response.QueryMonsterInfoResponse
 import com.hackton.backend.dto.response.QueryWinnerResponse
+import com.hackton.backend.dto.response.TimestampResponse
 import com.hackton.backend.service.QueryChampionInfoService
 import com.hackton.backend.service.QueryDestroyTowerInfoService
 import com.hackton.backend.service.QueryInhibitorBuildingInfoService
 import com.hackton.backend.service.QueryMonsterInfoService
+import com.hackton.backend.service.QueryTimestampService
 import com.hackton.backend.service.QueryWinnerService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -23,6 +25,7 @@ class DataController(
     private val queryInhibitorBuildingInfoService: QueryInhibitorBuildingInfoService,
     private val queryWinnerService: QueryWinnerService,
     private val queryDestroyTowerInfoService: QueryDestroyTowerInfoService,
+    private val queryTimestampService: QueryTimestampService,
 ) {
     @GetMapping("/champion")
     fun getChampionInfo(): QueryChampionInfoResponse {
@@ -56,5 +59,15 @@ class DataController(
         timeStamp: Int,
     ): QueryDestroyTowerInfoResponse {
         return queryDestroyTowerInfoService.getDestroyTowerInfo(timeStamp)
+    }
+
+    @GetMapping("/timestamp")
+    fun getTimestamp(
+        @RequestParam("minute")
+        minute: Int,
+        @RequestParam("second")
+        second: Int,
+    ): TimestampResponse {
+        return queryTimestampService.getTimestamp(minute, second)
     }
 }
